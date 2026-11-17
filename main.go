@@ -26,10 +26,18 @@ func (filteredLog) Write(p []byte) (int, error) {
 	return len(p), nil
 }
 
+// version is set at build time by the release workflow (-ldflags "-X main.version=...").
+var version = "dev"
+
 func main() {
 	port := flag.Int("port", 8443, "HTTPS listening port")
-	dataDir := flag.String("data", "", "configuration directory (default: ~/.config/remotephotoserver)")
+	dataDir := flag.String("data", "", "configuration directory (default: the user's configuration directory)")
+	showVersion := flag.Bool("version", false, "print the version and exit")
 	flag.Parse()
+	if *showVersion {
+		fmt.Println("remotephotoserver", version)
+		return
+	}
 
 	if *dataDir == "" {
 		base, err := os.UserConfigDir()
@@ -68,6 +76,7 @@ func main() {
 		ErrorLog:          log.New(filteredLog{}, "", log.LstdFlags),
 	}
 
+	fmt.Printf("remotephotoserver %s\n", version)
 	fmt.Printf("Administration (this machine only): https://localhost:%d/admin\n", *port)
 	ips := lanIPs()
 	if len(ips) == 0 {

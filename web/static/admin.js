@@ -77,6 +77,7 @@ async function browse(path) {
     const list = document.getElementById('dirs');
     list.replaceChildren();
     if (d.parent) list.append(h('li', {}, h('button', { onclick: () => browse(d.parent) }, t('⬆ Parent directory'))));
+    for (const drive of d.drives || []) list.append(h('li', {}, h('button', { onclick: () => browse(drive) }, '💽 ' + drive)));
     const sep = d.path.includes('\\') ? '\\' : '/';
     for (const name of d.dirs) {
       const full = d.path.endsWith(sep) ? d.path + name : d.path + sep + name;

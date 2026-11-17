@@ -12,6 +12,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"runtime"
 	"sort"
 	"strings"
 	"time"
@@ -354,7 +355,26 @@ func (a *App) handleBrowse(w http.ResponseWriter, r *http.Request) {
 	if parent == path {
 		parent = ""
 	}
-	writeJSON(w, map[string]any{"path": path, "parent": parent, "dirs": dirs, "photos": countPhotos(path)})
+	writeJSON(w, map[string]any{"path": path, "parent": parent, "dirs": dirs, "photos": countPhotos(path), "drives": otherDrives(path)})
+}
+
+// otherDrives lists the Windows drives other than the one holding path, so the
+// directory browser can leave the current drive. Empty on other systems.
+func otherDrives(path string) []string {
+	drives := []string{}
+	if runtime.GOOS != "windows" {
+		return drives
+	}
+	for c := 'A'; c <= 'Z'; c++ {
+		root := string(c) + `:\`
+		if strings.EqualFold(filepath.VolumeName(path)+`\`, root) {
+			continue
+		}
+		if _, err := os.Stat(root); err == nil {
+			drives = append(drives, root)
+		}
+	}
+	return drives
 }
 
 func (a *App) handleAddShare(w http.ResponseWriter, r *http.Request) {
