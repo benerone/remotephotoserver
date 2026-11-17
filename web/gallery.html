@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Photos</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="bar">
+  <a class="btn" href="/" aria-label="All directories">‹</a>
+  <h1 class="grow" id="title"></h1>
+  <label class="btn"><span data-i18n>Import</span><input class="vh" type="file" id="import" accept="image/*" multiple></label>
+  <label class="btn primary">📷 Photo<input class="vh" type="file" id="camera" accept="image/*" capture="environment"></label>
+</header>
+<main class="grid" id="grid"></main>
+<p class="empty" id="empty" hidden data-i18n>No photo in this directory. Use “📷 Photo” to take one.</p>
+
+<div class="overlay" id="viewer" hidden>
+  <div class="bar">
+    <button id="viewer-close" data-i18n>‹ Back</button>
+    <h1 class="grow" id="viewer-name"></h1>
+    <button id="viewer-rename" data-i18n>Rename</button>
+    <button id="viewer-edit" class="primary" data-i18n>Edit</button>
+  </div>
+  <div id="viewer-stage">
+    <img id="viewer-img" alt="">
+    <button class="nav" id="viewer-prev" aria-label="Previous photo">‹</button>
+    <button class="nav" id="viewer-next" aria-label="Next photo">›</button>
+  </div>
+</div>
+
+<div class="overlay" id="editor" hidden>
+  <div class="bar">
+    <button id="ed-close" data-i18n>Close</button>
+    <button id="ed-undo" disabled title="Undo last action" aria-label="Undo last action">↶</button>
+    <span class="grow"></span>
+    <button id="ed-saveas" title="Save as a new image" data-i18n>Save as…</button>
+    <button id="ed-save" class="primary" data-i18n>Save</button>
+  </div>
+  <div id="ed-stage">
+    <canvas id="ed-overlay"></canvas>
+    <div class="zoom">
+      <button id="ed-zoom-out" title="Zoom out" aria-label="Zoom out">−</button>
+      <button id="ed-zoom-reset" title="Show the whole image">100 %</button>
+      <button id="ed-zoom-in" title="Zoom in" aria-label="Zoom in">+</button>
+    </div>
+  </div>
+  <div class="bar tools">
+    <div class="seg" id="ed-tools">
+      <button data-tool="draw" data-i18n>Pencil</button>
+      <button data-tool="crop" data-i18n>Crop</button>
+      <button data-tool="persp" data-i18n>Perspective</button>
+    </div>
+    <div class="opts" id="ed-draw-opts">
+      <span id="ed-colors" class="opts"></span>
+      <span class="sep"></span>
+      <span id="ed-sizes" class="opts"></span>
+    </div>
+    <div class="opts" id="ed-apply-opts" hidden>
+      <span class="muted" id="ed-hint"></span>
+      <button id="ed-reset" data-i18n>Reset</button>
+      <button id="ed-apply" class="primary" data-i18n>Apply</button>
+    </div>
+  </div>
+</div>
+
+<dialog id="ask">
+  <form method="dialog">
+    <b id="ask-title"></b>
+    <div class="row">
+      <input type="text" id="ask-input" autocomplete="off" spellcheck="false" maxlength="120">
+      <span class="muted" id="ask-ext"></span>
+    </div>
+    <div class="row actions">
+      <button type="button" id="ask-cancel" data-i18n>Cancel</button>
+      <button value="ok" class="primary">OK</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="/static/util.js"></script>
+<script src="/static/editor.js"></script>
+<script src="/static/gallery.js"></script>
+</body>
+</html>

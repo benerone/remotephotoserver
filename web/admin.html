@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remote Photo Server — Administration</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="bar">
+  <h1 class="grow" data-i18n>Remote Photo Server — Administration</h1>
+  <label><span data-i18n>Server address</span> <select id="ip"></select></label>
+  <a class="btn" href="/" data-i18n>Client view</a>
+</header>
+<div class="admin">
+  <section class="card">
+    <h2 data-i18n>Shared directories</h2>
+    <div id="shares"></div>
+  </section>
+  <section class="card">
+    <h2 data-i18n>Share a directory</h2>
+    <form id="goto" class="bar" style="padding:0;background:none;border:0;flex-wrap:nowrap">
+      <input type="text" id="path" aria-label="Directory path" spellcheck="false" autocomplete="off">
+      <button data-i18n>Go</button>
+    </form>
+    <ul class="dirs" id="dirs"></ul>
+    <div class="bar" style="padding:0;background:none;border:0">
+      <span class="grow muted" id="dir-info"></span>
+      <button class="primary" id="share-btn" data-i18n>Share this directory</button>
+    </div>
+  </section>
+</div>
+<dialog id="qr-big">
+  <form method="dialog">
+    <b id="qr-title"></b>
+    <img id="qr-img" alt="QR code">
+    <span class="muted" id="qr-url" style="overflow-wrap:anywhere"></span>
+    <div class="row actions"><button class="primary" data-i18n>Close</button></div>
+  </form>
+</dialog>
+<script src="/static/util.js"></script>
+<script src="/static/admin.js"></script>
+</body>
+</html>
