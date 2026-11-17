@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: LGPL-2.1-only
+// Copyright (C) 2026 benerone
+// This file is part of remotephotoserver; see the LICENSE file for the terms.
+
 package main
 
 import (

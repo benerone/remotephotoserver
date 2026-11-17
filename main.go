@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: LGPL-2.1-only
+// Copyright (C) 2026 benerone
+// This file is part of remotephotoserver; see the LICENSE file for the terms.
+
 // remotephotoserver shares photo directories on the local network over
 // self-signed HTTPS; clients view, take and edit photos from their browser.
 package main
